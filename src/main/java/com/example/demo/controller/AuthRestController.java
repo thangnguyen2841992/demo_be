@@ -5,8 +5,7 @@ import com.example.demo.model.dto.ErrorMessage;
 import com.example.demo.model.dto.auth.JwtResponse;
 import com.example.demo.model.dto.auth.UserLoginForm;
 import com.example.demo.model.dto.auth.UserRegisterForm;
-import com.example.demo.model.entity.User;
-import com.example.demo.service.role.IRoleService;
+import com.example.demo.model.entity.auth.User;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,7 +62,12 @@ public class AuthRestController {
         user.setAddress(userRegisterForm.getAddress());
         user.setPassword(userRegisterForm.getPassword());
         user.setAvatar("default-avatar.jpg");
-        this.userService.saveCustomer(user);
+        if (userRegisterForm.getRole() == 2) {
+            this.userService.saveCustomer(user);
+        }
+        if (userRegisterForm.getRole() == 1) {
+            this.userService.saveMerchant(user);
+        }
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }

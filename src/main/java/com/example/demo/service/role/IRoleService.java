@@ -1,6 +1,6 @@
 package com.example.demo.service.role;
 
-import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.auth.Role;
 
 
 import java.util.Optional;

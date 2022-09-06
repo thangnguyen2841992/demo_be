@@ -1,12 +1,11 @@
-package com.example.demo.model.entity;
+package com.example.demo.model.entity.auth;
 
+import com.example.demo.model.entity.auth.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity

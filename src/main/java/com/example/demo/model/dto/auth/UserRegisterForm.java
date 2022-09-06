@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegisterForm {
+    private Integer role;
+
     @NotEmpty(message = "Không được để trống")
     @Column(unique = true)
     private String email;
@@ -23,6 +25,8 @@ public class UserRegisterForm {
     private String fullName;
 
     private String address;
+
+
 
     public boolean confirmPasswordMatch(){
         return password.equals(confirmPassword);

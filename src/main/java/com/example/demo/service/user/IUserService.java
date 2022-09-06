@@ -1,6 +1,6 @@
 package com.example.demo.service.user;
 
-import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.auth.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

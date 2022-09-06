@@ -1,8 +1,8 @@
 package com.example.demo.service.user;
 
 import com.example.demo.model.dto.auth.UserPrincipal;
-import com.example.demo.model.entity.Role;
-import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.auth.Role;
+import com.example.demo.model.entity.auth.User;
 import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.role.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

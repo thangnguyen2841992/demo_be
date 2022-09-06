@@ -4,11 +4,9 @@ package com.example.demo.config.security;
 import com.example.demo.config.CustomAccessDeniedHandler;
 import com.example.demo.config.JwtAuthenticationFilter;
 import com.example.demo.config.RestAuthenticationEntryPoint;
-import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.auth.Role;
 
-import com.example.demo.model.entity.User;
-import com.example.demo.repository.IRoleRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.model.entity.auth.User;
 import com.example.demo.service.role.IRoleService;
 import com.example.demo.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

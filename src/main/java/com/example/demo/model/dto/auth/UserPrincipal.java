@@ -1,7 +1,7 @@
 package com.example.demo.model.dto.auth;
 
-import com.example.demo.model.entity.Role;
-import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.auth.Role;
+import com.example.demo.model.entity.auth.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
