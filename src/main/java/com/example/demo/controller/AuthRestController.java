@@ -62,13 +62,7 @@ public class AuthRestController {
         user.setAddress(userRegisterForm.getAddress());
         user.setPassword(userRegisterForm.getPassword());
         user.setAvatar("default-avatar.jpg");
-        if (userRegisterForm.getRole() == 2) {
-            this.userService.saveCustomer(user);
-        }
-        if (userRegisterForm.getRole() == 1) {
-            this.userService.saveMerchant(user);
-        }
-
+        this.userService.saveCustomer(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     @PostMapping("/login")

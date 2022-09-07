@@ -1,6 +1,6 @@
 package com.example.demo.service.dish;
 
-import com.example.demo.model.entity.Merchant;
+import com.example.demo.model.entity.merchant.Merchant;
 import com.example.demo.model.entity.category.Category;
 import com.example.demo.model.entity.dish.Dish;
 import org.springframework.data.domain.Page;

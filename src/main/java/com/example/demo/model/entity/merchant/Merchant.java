@@ -1,4 +1,4 @@
-package com.example.demo.model.entity;
+package com.example.demo.model.entity.merchant;
 
 import com.example.demo.model.entity.auth.User;
 import lombok.AllArgsConstructor;

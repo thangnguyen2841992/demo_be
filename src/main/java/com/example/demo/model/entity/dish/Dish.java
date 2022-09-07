@@ -1,6 +1,6 @@
 package com.example.demo.model.entity.dish;
 
-import com.example.demo.model.entity.Merchant;
+import com.example.demo.model.entity.merchant.Merchant;
 import com.example.demo.model.entity.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.dto.ErrorMessage;
 import com.example.demo.model.dto.dish.DishForm;
-import com.example.demo.model.entity.Merchant;
+import com.example.demo.model.entity.merchant.Merchant;
 import com.example.demo.model.entity.dish.Dish;
 import com.example.demo.service.dish.IDishService;
 import com.example.demo.service.merchant.IMerchantService;
@@ -29,8 +30,11 @@ public class DishRestController {
     @Autowired
     private IDishService dishService;
 
-    @Value("${file-upload}")
+    @Value("C:/Users/Admin/IdeaProjects/Image")
     private String uploadPath;
+
+    @Autowired
+    private IMerchantService merchantService;
 
     @GetMapping("/page/{pageNumber}")
     public ResponseEntity<Page<Dish>> showDishes(@RequestParam(name = "q") Optional<String> q, @PathVariable int pageNumber) {
@@ -61,41 +65,64 @@ public class DishRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Dish> saveDish(@ModelAttribute DishForm dishForm) {
+//    @PostMapping
+//    public ResponseEntity<Dish> saveDish(@ModelAttribute DishForm dishForm) {
+//        MultipartFile img = dishForm.getImage();
+//        if (img != null && img.getSize() != 0) {
+//            String fileName = img.getOriginalFilename();
+//            long currentTime = System.currentTimeMillis();
+//            fileName = currentTime + "_" + fileName;
+//            try {
+//                FileCopyUtils.copy(img.getBytes(), new File(uploadPath + fileName));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            Dish dish = new Dish();
+//            dish.setId(dishForm.getId());
+//            dish.setName(dishForm.getName());
+//            dish.setCategories(dishForm.getCategories());
+//            dish.setPrice(dishForm.getPrice());
+//            dish.setMerchant(dishForm.getMerchant());
+//            dish.setDescription(dishForm.getDescription());
+//            dish.setImage(fileName);
+//            return new ResponseEntity<>(dishService.save(dish), HttpStatus.CREATED);
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
+
+    @PostMapping("/dish/create/merchant/{merchantId}")
+    public ResponseEntity<?> saveDishImg(@ModelAttribute DishForm dishForm, @PathVariable Long merchantId) {
         MultipartFile img = dishForm.getImage();
+        Dish newDish = new Dish();
         if (img != null && img.getSize() != 0) {
             String fileName = img.getOriginalFilename();
             long currentTime = System.currentTimeMillis();
-            fileName = currentTime + "_" + fileName;
+            fileName = currentTime + fileName;
+            newDish.setImage(fileName);
             try {
                 FileCopyUtils.copy(img.getBytes(), new File(uploadPath + fileName));
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
-            Dish dish = new Dish();
-            dish.setId(dishForm.getId());
-            dish.setName(dishForm.getName());
-            dish.setCategories(dishForm.getCategories());
-            dish.setPrice(dishForm.getPrice());
-            dish.setMerchant(dishForm.getMerchant());
-            dish.setDescription(dishForm.getDescription());
-            dish.setImage(fileName);
-            return new ResponseEntity<>(dishService.save(dish), HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Optional<Merchant> merchantOptional = this.merchantService.findMerchantByUser_Id(merchantId);
+        if (!merchantOptional.isPresent()) {
+            return new ResponseEntity<>(new ErrorMessage("ID cửa hàng không đúng"), HttpStatus.BAD_REQUEST);
+        }
+        newDish.setName(dishForm.getName());
+        newDish.setPrice(dishForm.getPrice());
+        newDish.setCategories(dishForm.getCategories());
+        newDish.setDescription(dishForm.getDescription());
+        newDish.setMerchant(merchantOptional.get());
+        newDish.setSold(0L);
+        return new ResponseEntity<>(dishService.save(newDish), HttpStatus.OK);
     }
-
-
     @GetMapping("/most-purchased/{top}")
     public ResponseEntity<?> getMostPurchasedDishes(@PathVariable Long top){
         if (top == null) top = 8L;
         Iterable<Dish> dishes = dishService.findMostPurchased(top.intValue());
         return new ResponseEntity<>(dishes, HttpStatus.OK);
     }
-
-    @Autowired
-    IMerchantService merchantService;
     @GetMapping("/merchants/{merchantId}")
     public ResponseEntity<?> getMerchantDishesByMerchantId(@PathVariable Long merchantId) {
         Optional<Merchant> findMerchant = merchantService.findById(merchantId);

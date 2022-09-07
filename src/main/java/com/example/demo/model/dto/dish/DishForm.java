@@ -1,6 +1,5 @@
 package com.example.demo.model.dto.dish;
 
-import com.example.demo.model.entity.Merchant;
 import com.example.demo.model.entity.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class DishForm {
-    private Long id;
 
     private String name;
 
@@ -21,7 +19,6 @@ public class DishForm {
 
     private List<Category> categories;
 
-    private Merchant merchant;
 
     private String description;
 
