@@ -78,8 +78,8 @@ public class RegisterMerchantRestController {
         merchant.setPhone(mrr.getPhone());
         merchant.setOpenTime(mrr.getOpenTime());
         merchant.setCloseTime(mrr.getCloseTime());
-        merchant.setAvatar("merchant-avatar-default.jpg");
-        merchant.setImageBanner("merchant-imageBanner-default.jpg");
+        merchant.setAvatar("unnamed.png");
+        merchant.setImageBanner("unnamed.jpg");
         // sua role user thanh role merchant
         User user = mrr.getUser();
         Optional<Role> roleOptional = this.roleService.findByName("ROLE_MERCHANT");

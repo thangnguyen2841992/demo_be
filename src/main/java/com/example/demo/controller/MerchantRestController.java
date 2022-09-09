@@ -30,10 +30,27 @@ public class MerchantRestController {
     private IDishService dishService;
 
 
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> findMerchantInfoByUserId(@PathVariable Long userId) {
+        Optional<Merchant> merchantOptional = this.merchantService.findMerchantByUser_Id(userId);
+        if (!merchantOptional.isPresent()) {
+            return new ResponseEntity<>(new ErrorMessage("Cửa hàng không tồn tại!"), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(merchantOptional.get(), HttpStatus.OK);
+    }
     @GetMapping
     public ResponseEntity<Iterable<Merchant>> findAllMerchant() {
         Iterable<Merchant> merchants = merchantService.findAll();
         return new ResponseEntity<>(merchants, HttpStatus.OK);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findMerchantById(@PathVariable Long id) {
+        Optional<Merchant> merchantOptional = this.merchantService.findById(id);
+        if (!merchantOptional.isPresent()) {
+            return new ResponseEntity<>(new ErrorMessage("Cửa hàng không tồn tại"), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(merchantOptional.get(), HttpStatus.OK);
     }
 
     @GetMapping("/merchant/user/{userId}")
