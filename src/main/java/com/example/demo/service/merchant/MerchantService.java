@@ -31,6 +31,10 @@ public class MerchantService implements IMerchantService{
         merchantRepository.deleteById(id);
     }
 
+//    @Override
+//    public Merchant findMerchantByUser_Id(Long userId) {
+//        return merchantRepository.findMerchantByUserId(userId).orElse(null);
+//    }
     @Override
     public Optional<Merchant> findMerchantByUser_Id(Long userId) {
         return merchantRepository.findMerchantByUserId(userId);
